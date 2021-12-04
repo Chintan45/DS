@@ -54,10 +54,51 @@ class LinkedList:
             itr = itr.next
         return count
     
+    """ remove el"""
+    def remove_at(self, index):
+        if index<0 or index>=self.get_length():
+            raise Exception("Invalid index")
+        
+        if index==0:
+            self.head = self.head.next
+            return
+        
+        count = 0
+        itr = self.head
+        while itr:
+            if count == index-1:
+                itr.next = itr.next.next
+                break
+            itr = itr.next
+            count +=1
+            
+    """ insert at () value """
+    def insert_at(self, index, data):
+        if index<0  and index>self.get_length():
+            raise Exception("Invalid index")
+        
+        if index==0:
+            self.insert_at_beginning(data)
+            return
+        
+        count = 0
+        itr = self.head
+        while itr:
+            if count == index-1:
+                node = Node(data, itr.next)
+                itr.next = node
+                break
+            
+            itr =  itr.next
+            count+=1
+    
 if __name__ == '__main__':
     ll = LinkedList()
-    ll.insert_at_beginning(5)
     ll.insert_values(["Facebook", "Amazon", "Apple", "Netflix", "google"])
     ll.print()
     print(ll.get_length())
+    ll.remove_at(2)
+    ll.print()
+    ll.insert_at(0,"Apple")
+    ll.print()
     pass
